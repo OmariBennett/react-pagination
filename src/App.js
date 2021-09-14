@@ -7,7 +7,7 @@ function App() {
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [postsPerPage, setPostsPerPage] = useState(10);
+	const [postsPerPage] = useState(10);
 	const URL = 'https://jsonplaceholder.typicode.com/posts';
 
 	useEffect(() => {
@@ -25,11 +25,17 @@ function App() {
 	const indexOfFirstPost = indexOfLastPost - postsPerPage;
 	const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
+	const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
 	return (
 		<div className='container mt-5'>
 			<h1 className='text-primary mb-3'>A Simple Blog</h1>
 			<Posts posts={currentPosts} loading={loading} />
-			<Pagination postPerPage={postsPerPage} totalPosts={posts.length} />
+			<Pagination
+				postPerPage={postsPerPage}
+				totalPosts={posts.length}
+				paginate={paginate}
+			/>
 		</div>
 	);
 }
